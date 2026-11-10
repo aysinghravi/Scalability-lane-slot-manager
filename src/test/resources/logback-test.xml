@@ -1,0 +1,9 @@
+<configuration>
+    <!-- Keep test output readable: the 20k-request load test would otherwise print every slot event. -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+    <logger name="com.acuver.aekyam.slotpoc" level="INFO"/>
+</configuration>

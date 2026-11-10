@@ -1,0 +1,21 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: outbound-slot-poc
+  threads:
+    virtual:
+      enabled: true          # Tomcat request handling runs on virtual threads
+
+# Every POC default lives here. SlotPocProperties only falls back to the same values if a key is removed.
+slot-poc:
+  service-max-slots: 1000              # x: pod-wide slot capacity (whiteboard "slots_1 ... 1000" box)
+  default-lane-latency-ms: 100         # simulated delivery time when a lane has no latencyMs
+  retry-after-seconds: 1               # Retry-After header on 429
+  delivery-shutdown-wait-seconds: 30   # graceful shutdown wait for in-flight deliveries
+
+logging:
+  level:
+    root: INFO
+    com.acuver.aekyam.slotpoc: DEBUG    # set to DEBUG to see every slot acquire / reject / release
