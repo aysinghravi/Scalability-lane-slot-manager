@@ -14,6 +14,12 @@ slot-poc:
   default-lane-latency-ms: 100         # simulated delivery time when a lane has no latencyMs
   retry-after-seconds: 1               # Retry-After header on 429
   delivery-shutdown-wait-seconds: 30   # graceful shutdown wait for in-flight deliveries
+  planner:                             # shared lane slots
+    enabled: true                      # false = every lane stays fixed at its guaranteedSlots
+    interval-ms: 200                   # re-plan lane slots this often (lane scheduler uses 200 ms)
+    demand-smoothing-up: 0.5           # weight of the newest window when demand rises (react fast), (0, 1]
+    demand-smoothing-down: 0.15        # weight of the newest window when demand falls (give back slowly), (0, 1]
+    shrink-deadband: 0.1               # skip shrinks under 10% of the target (min 2 slots); 0 = apply all
 
 logging:
   level:

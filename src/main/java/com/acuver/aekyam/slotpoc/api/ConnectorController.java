@@ -55,13 +55,16 @@ public class ConnectorController {
     public record OnboardRequest(String connectorId, Integer slots, List<SlotRegistry.LaneConfig> lanes) {
     }
 
-    public record LaneView(String laneId, long latencyMs, SlotPool.Stats slots) {
+    /** {@code slots.capacity} is the lane's current planned target; {@code demand} is what it wanted at the last plan. */
+    public record LaneView(String laneId, long latencyMs, int guaranteedSlots, int maxSlots, int weight,
+                           int demand, long resizes, SlotPool.Stats slots) {
     }
 
     public record ConnectorView(String connectorId, SlotPool.Stats slots, List<LaneView> lanes) {
         static ConnectorView of(Connector c) {
             return new ConnectorView(c.connectorId(), c.pool().stats(), c.lanes().stream()
-                    .map(l -> new LaneView(l.laneId(), l.latencyMs(), l.pool().stats())).toList());
+                    .map(l -> new LaneView(l.laneId(), l.latencyMs(), l.guaranteedSlots(), l.maxSlots(),
+                            l.weight(), l.demandSlots(), l.resizes(), l.pool().stats())).toList());
         }
     }
 

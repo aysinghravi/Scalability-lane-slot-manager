@@ -2,7 +2,7 @@
   "connectorId": "Kafka_connector_1",
   "slots": 20,
   "lanes": [
-    { "laneId": "stage-4:topic1", "slots": 15 },
-    { "laneId": "stage-5:topic2", "slots": 15 }
+    { "laneId": "stage-4:topic1", "guaranteedSlots": 5, "maxSlots": 15, "weight": 2 },
+    { "laneId": "stage-5:topic2", "guaranteedSlots": 5, "maxSlots": 15 }
   ]
 }

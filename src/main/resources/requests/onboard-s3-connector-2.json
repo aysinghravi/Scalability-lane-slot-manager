@@ -2,6 +2,6 @@
   "connectorId": "S3_connector_2",
   "slots": 100,
   "lanes": [
-    { "laneId": "stage-3:bucket3", "slots": 30, "latencyMs": 300 }
+    { "laneId": "stage-3:bucket3", "guaranteedSlots": 30, "latencyMs": 300 }
   ]
 }

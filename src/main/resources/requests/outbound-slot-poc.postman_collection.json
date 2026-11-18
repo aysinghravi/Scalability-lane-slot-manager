@@ -9,38 +9,38 @@
   ],
   "item": [
     {
-      "name": "1. Onboard S3_connector_1 (130 slots; bucket1 18, bucket2 30)",
+      "name": "1. Onboard S3_connector_1 (130 slots; bucket1 guaranteed 18, bucket2 guaranteed 30)",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
         "url": "{{baseUrl}}/connectors",
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"connectorId\": \"S3_connector_1\",\n  \"slots\": 130,\n  \"lanes\": [\n    { \"laneId\": \"stage-1:bucket1\", \"slots\": 18, \"latencyMs\": 600 },\n    { \"laneId\": \"stage-2:bucket2\", \"slots\": 30, \"latencyMs\": 300 }\n  ]\n}"
+          "raw": "{\n  \"connectorId\": \"S3_connector_1\",\n  \"slots\": 130,\n  \"lanes\": [\n    { \"laneId\": \"stage-1:bucket1\", \"guaranteedSlots\": 18, \"latencyMs\": 600 },\n    { \"laneId\": \"stage-2:bucket2\", \"guaranteedSlots\": 30, \"latencyMs\": 300 }\n  ]\n}"
         }
       }
     },
     {
-      "name": "2. Onboard S3_connector_2 (100 slots; bucket3 30)",
+      "name": "2. Onboard S3_connector_2 (100 slots; bucket3 guaranteed 30)",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
         "url": "{{baseUrl}}/connectors",
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"connectorId\": \"S3_connector_2\",\n  \"slots\": 100,\n  \"lanes\": [\n    { \"laneId\": \"stage-3:bucket3\", \"slots\": 30, \"latencyMs\": 300 }\n  ]\n}"
+          "raw": "{\n  \"connectorId\": \"S3_connector_2\",\n  \"slots\": 100,\n  \"lanes\": [\n    { \"laneId\": \"stage-3:bucket3\", \"guaranteedSlots\": 30, \"latencyMs\": 300 }\n  ]\n}"
         }
       }
     },
     {
-      "name": "3. Onboard Kafka_connector_1 (over-subscribed, default latency)",
+      "name": "3. Onboard Kafka_connector_1 (maxSlots over-subscribed, weight 2:1, default latency)",
       "request": {
         "method": "POST",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
         "url": "{{baseUrl}}/connectors",
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"connectorId\": \"Kafka_connector_1\",\n  \"slots\": 20,\n  \"lanes\": [\n    { \"laneId\": \"stage-4:topic1\", \"slots\": 15 },\n    { \"laneId\": \"stage-5:topic2\", \"slots\": 15 }\n  ]\n}"
+          "raw": "{\n  \"connectorId\": \"Kafka_connector_1\",\n  \"slots\": 20,\n  \"lanes\": [\n    { \"laneId\": \"stage-4:topic1\", \"guaranteedSlots\": 5, \"maxSlots\": 15, \"weight\": 2 },\n    { \"laneId\": \"stage-5:topic2\", \"guaranteedSlots\": 5, \"maxSlots\": 15 }\n  ]\n}"
         }
       }
     },
